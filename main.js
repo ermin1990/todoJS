@@ -7,6 +7,13 @@ document.querySelector("#todo").addEventListener("keypress", function (e) {
   }
 });
 
+document.querySelector("#todo").addEventListener("keyup", function (e) {
+    if (e) {
+        document.getElementById('todo').style.border = '';
+    }
+  });
+
+
 let lista = [];
 let zadatak = document.querySelector(".todoLista");
 let greska = document.querySelector(".prikazGreske");
@@ -44,14 +51,17 @@ function dodajNoviTask() {
     lista.push(task);
     ucitajListu(lista);
     updateStorege(lista);
+    document.getElementById('todo').style.border = '';
     document.querySelector("#todo").value = "";
+    document.querySelector("#todo").placeholder = "Upišite zadatak...";
   } else {
     let textgreska = `
         <div class="alert">
             Morate upisati zadatak!!!
         </div>
         `;
-
+    document.getElementById('todo').style.border = '1px solid red';
+    document.querySelector("#todo").placeholder = "Morate upisati zadatak";
     greska.innerHTML = textgreska;
   }
 }
@@ -63,6 +73,9 @@ function updateStorege(lista) {
 }
 
 function izbrisiTask(i) {
+    document.querySelector("#todo").placeholder = "Upišite zadatak...";
+    document.getElementById('todo').style.border = '';
+    greska.innerHTML = "";
   lista.splice(i, 1);
   updateStorege(lista);
 }
